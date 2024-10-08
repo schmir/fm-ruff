@@ -26,6 +26,8 @@
 
 ;;; Commentary:
 
+;; This is a flymake backend for python. It's using ruff with json output to generate warnings
+;; asynchronously.  Using the json output allows fm-ruff to mark the exact location of warnings.
 ;; Modelled after https://www.gnu.org/software/emacs/manual/html_node/flymake/An-annotated-example-backend.html
 
 ;;; Code:
