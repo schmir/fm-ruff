@@ -3,7 +3,7 @@
 ;; Author: Ralf Schmitt
 ;; Version: 0.0.1
 
-;; Package-Requires: ((emacs "28.1") (seq "2.24"))
+;; Package-Requires: ((emacs "28.1"))
 
 ;; Homepage: https://github.com/schmir/fm-ruff
 
@@ -86,15 +86,15 @@
                     (with-current-buffer (process-buffer proc)
                       (goto-char (point-min))
                       (let* ((warnings (json-parse-buffer))
-                             (res (seq-map (lambda (w)
-                                             (flymake-make-diagnostic source
-                                                                      (cons (gethash "row" (gethash "location" w))
-                                                                            (gethash "column" (gethash "location" w)))
-                                                                      (cons (gethash "row" (gethash "end_location" w))
-                                                                            (gethash "column" (gethash "end_location" w)))
-                                                                      :error
-                                                                      (format "ruff: %s %s" (gethash "code" w) (gethash "message" w))))
-                                           warnings)))
+                             (res (mapcar (lambda (w)
+                                            (flymake-make-diagnostic source
+                                                                     (cons (gethash "row" (gethash "location" w))
+                                                                           (gethash "column" (gethash "location" w)))
+                                                                     (cons (gethash "row" (gethash "end_location" w))
+                                                                           (gethash "column" (gethash "end_location" w)))
+                                                                     :error
+                                                                     (format "ruff: %s %s" (gethash "code" w) (gethash "message" w))))
+                                          warnings)))
                         (funcall report-fn res)))
                   (flymake-log :warning "Canceling obsolete check %s"
                                proc))
