@@ -52,7 +52,9 @@
 (ert-deftest fm-ruff-test-setup-adds-hook ()
   "Test that `fm-ruff-setup' adds `fm-ruff-flymake' to flymake diagnostic functions."
   (with-temp-buffer
-    (python-mode)
+    ;; Suppress "Can't guess python-indent-offset" message.
+    (let ((inhibit-message t))
+      (python-mode))
     (let ((flymake-diagnostic-functions nil))
       (fm-ruff-setup)
       (should (memq #'fm-ruff-flymake flymake-diagnostic-functions)))))
@@ -72,7 +74,9 @@
     (unwind-protect
         (progn
           (with-current-buffer buf1
-            (python-mode)
+            ;; Suppress "Can't guess python-indent-offset" message.
+            (let ((inhibit-message t))
+              (python-mode))
             (let ((flymake-diagnostic-functions nil))
               (fm-ruff-setup)
               (should (memq #'fm-ruff-flymake
