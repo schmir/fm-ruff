@@ -2,10 +2,9 @@
 
 ;; Author: Ralf Schmitt
 ;; Version: 0.0.1
-
-;; Package-Requires: ((emacs "28.1"))
-
-;; Homepage: https://github.com/schmir/fm-ruff
+;; Package-Requires: ((emacs "29.1"))
+;; Keywords: ruff, flymake, python
+;; URL: https://github.com/schmir/fm-ruff
 
 ;; This file is not part of GNU Emacs
 
