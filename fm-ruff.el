@@ -32,7 +32,6 @@
 
 ;;; Code:
 
-(require 'seq)
 (defvar-local fm-ruff--flymake-proc nil)
 
 ;;;###autoload
@@ -114,7 +113,7 @@
 ;;;###autoload
 (defun fm-ruff-setup ()
   (interactive)
-  (when (or t (derived-mode-p 'python-base-mode))
+  (when (derived-mode-p 'python-base-mode)
     (add-hook 'flymake-diagnostic-functions #'fm-ruff-flymake nil t)))
 
 

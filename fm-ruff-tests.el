@@ -52,9 +52,18 @@
 (ert-deftest fm-ruff-test-setup-adds-hook ()
   "Test that `fm-ruff-setup' adds `fm-ruff-flymake' to flymake diagnostic functions."
   (with-temp-buffer
+    (python-mode)
     (let ((flymake-diagnostic-functions nil))
       (fm-ruff-setup)
       (should (memq #'fm-ruff-flymake flymake-diagnostic-functions)))))
+
+(ert-deftest fm-ruff-test-setup-skips-non-python ()
+  "Test that `fm-ruff-setup' does nothing outside python-mode."
+  (with-temp-buffer
+    (fundamental-mode)
+    (let ((flymake-diagnostic-functions nil))
+      (fm-ruff-setup)
+      (should-not (memq #'fm-ruff-flymake flymake-diagnostic-functions)))))
 
 (ert-deftest fm-ruff-test-setup-is-buffer-local ()
   "Test that `fm-ruff-setup' only affects the current buffer."
@@ -63,6 +72,7 @@
     (unwind-protect
         (progn
           (with-current-buffer buf1
+            (python-mode)
             (let ((flymake-diagnostic-functions nil))
               (fm-ruff-setup)
               (should (memq #'fm-ruff-flymake
